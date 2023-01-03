@@ -88,7 +88,7 @@ const updateExercise = async (id, user, fieldsToUpdate) => {
  * @user {String} User id the exercise must be
  * @returns Promise of JSON response for data on documents deleted
  */
-const deleteExercise = (user, id) => {
+const deleteExercise = (id, user) => {
     const query = Exercise.deleteOne({_id: id, user: user});
     return query;
 };

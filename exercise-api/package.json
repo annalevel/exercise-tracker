@@ -5,7 +5,7 @@
   "main": "exercise_controller.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon exercise_controller.mjs"
+    "start": "node ./exercise_controller.mjs"
   },
   "author": "",
   "license": "ISC",
@@ -13,9 +13,10 @@
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-jwt": "^8.2.1",
-    "express-validator": "^6.14.2",
     "jwks-rsa": "^3.0.0",
+    "moment": "^2.29.4",
     "mongoose": "^6.3.3",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "validator": "^13.7.0"
   }
 }
