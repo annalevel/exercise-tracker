@@ -14,7 +14,8 @@ function ExerciseList({ exercises, onEdit, onDelete }) {
                 </tr>
             </thead>
             <tbody>
-                {exercises.map((exercise, i) => <ExerciseRow exercise={exercise} onEdit={onEdit} onDelete={onDelete} key={i} />)}
+                {(exercises.length > 0) ? exercises.map((exercise, i) => <ExerciseRow exercise={exercise} onEdit={onEdit} onDelete={onDelete} key={i} />)
+                                        : <tr><td colSpan={6}>No exercises found.</td></tr>}
             </tbody>
         </table>
     );

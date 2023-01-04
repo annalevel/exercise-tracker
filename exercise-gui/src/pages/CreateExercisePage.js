@@ -20,7 +20,7 @@ export const CreateExercisePage = () => {
 
         try {
             const accessToken = await getAccessTokenSilently();
-            const response = await fetch('/exercises/', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/exercises`, {
                 method: 'POST',
                 body: JSON.stringify(newExercise),
                 headers: {

@@ -21,7 +21,7 @@ export const EditExercisePage = ({ exerciseToEdit }) => {
         
         try {
             const accessToken = await getAccessTokenSilently();
-            const response = await fetch(`/exercises/${exerciseToEdit._id}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/exercises/${exerciseToEdit._id}`, {
                 method: 'PUT',
                 body: JSON.stringify(editedExercise),
                 headers: {

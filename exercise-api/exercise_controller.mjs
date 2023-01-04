@@ -4,11 +4,16 @@ import jwt from 'express-jwt'
 import jwks from 'jwks-rsa';
 import validator from 'validator';
 import moment from 'moment';
+import cors from 'cors';
 import * as exercises from './exercise_model.mjs';
 
 const app = express();
 const PORT = process.env.PORT;
 
+app.use(cors({
+    origin: 'https://exercises.levelanna.com'
+}));
+app.options('*', cors());
 app.use(express.json());
 
 // Using Auth0 for authentication

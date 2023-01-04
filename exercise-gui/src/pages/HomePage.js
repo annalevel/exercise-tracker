@@ -6,6 +6,7 @@ import ExerciseList from '../components/ExerciseList';
 function HomePage({ setExerciseToEdit }) {
     const { user, getAccessTokenSilently, isAuthenticated, loginWithRedirect } = useAuth0();
     const [exercises, setExercises] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
 
     const onEdit = (exercise) => {
@@ -16,7 +17,7 @@ function HomePage({ setExerciseToEdit }) {
     const onDelete = async (id) => {
         try {
             const accessToken = await getAccessTokenSilently();
-            const response = await fetch(`/exercises/${id}`, { 
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/exercises/${id}`, { 
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -36,8 +37,9 @@ function HomePage({ setExerciseToEdit }) {
     useEffect(() => {
         const loadExercises = async () => {
             try {
+                setIsLoading(true);
                 const accessToken = await getAccessTokenSilently();
-                const response = await fetch('/exercises', {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/exercises`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -45,6 +47,7 @@ function HomePage({ setExerciseToEdit }) {
 
                 const data = await response.json();
                 setExercises(data);
+                setIsLoading(false);
             } catch (e) {
               console.log(e.message);
             }
@@ -54,12 +57,16 @@ function HomePage({ setExerciseToEdit }) {
     }, [getAccessTokenSilently, user?.sub]);
 
     if (isAuthenticated) {
-        return (
-            <>
-                <h2>Exercises</h2>
-                <ExerciseList exercises={exercises} onEdit={onEdit} onDelete={onDelete} />
-            </>
-        );
+        if (isLoading) {
+            return (<p>Loading...</p>);
+        } else {
+            return (
+                <>
+                    <h2>Exercises</h2>
+                    <ExerciseList exercises={exercises} onEdit={onEdit} onDelete={onDelete} />
+                </>
+            );
+        }
     } else { 
         return (<>
             <p>Track your exercises using this handy tool.</p>
